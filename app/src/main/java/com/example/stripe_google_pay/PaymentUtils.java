@@ -8,7 +8,9 @@ import com.google.android.gms.wallet.WalletConstants;
 import com.stripe.Stripe;
 import com.stripe.android.model.Token;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Account;
 import com.stripe.model.Charge;
+import com.stripe.net.RequestOptions;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -48,7 +50,7 @@ public class PaymentUtils {
         return request.build();
     }
 
-    public static void chargeToken(Token stripeToken) {
+    public static void chargeToken(Token stripeToken, String accountId) {
         //Token stripeToken
         // This chargeToken function is a call to your own server, which should then connect
         // to Stripe's API to finish the charge.
@@ -66,13 +68,36 @@ public class PaymentUtils {
         params.put("currency", "usd");
         params.put("description", "Example charge");
         params.put("source", token);
-
+        RequestOptions requestOptions = RequestOptions.builder()
+                .setStripeAccount(accountId)
+                .build();
         try {
-            Charge charge = Charge.create(params);
+            Charge charge = Charge.create(params, requestOptions);
         } catch (StripeException e) {
             throw new RuntimeException("Stripe-api threw an exception " + e);
         }
     }
+
+    public static String createStripeCustomer(String email) {
+        // Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+        Stripe.apiKey = "sk_test_XdFiSYM0HYhnhv7zuXCOxL7n";
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("country", "US");
+        params.put("type", "custom");
+        params.put("email", email);
+
+        Account acct;
+        try {
+            acct = Account.create(params);
+        } catch (StripeException e) {
+            throw new RuntimeException("Stripe-api threw an exception " + e);
+        }
+
+        return acct.getId();
+    }
+
 
     public static void testChargeToken() {
         //Token stripeToken

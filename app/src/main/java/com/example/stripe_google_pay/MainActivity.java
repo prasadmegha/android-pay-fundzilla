@@ -1,99 +1,99 @@
 package com.example.stripe_google_pay;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.identity.intents.model.UserAddress;
-import com.google.android.gms.wallet.AutoResolveHelper;
-import com.google.android.gms.wallet.CardInfo;
-import com.google.android.gms.wallet.PaymentData;
-import com.google.android.gms.wallet.PaymentDataRequest;
-import com.google.android.gms.wallet.PaymentsClient;
-import com.google.android.gms.wallet.Wallet;
-import com.google.android.gms.wallet.WalletConstants;
-import com.stripe.android.model.Token;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 99;
-    private static  PaymentsClient paymentsClient;
+    EditText email;
+    EditText pass;
+    private DatabaseReference mDatabase;
+    private User currentUser;
+    private static  String userId;
+    private static String stripeId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        email = findViewById(R.id.emailText);
+        pass = findViewById(R.id.pwText);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        paymentsClient =
-                Wallet.getPaymentsClient(this,
-                        new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST)
-                                .build());
+        // Write a message to the database
+        FirebaseApp.initializeApp(this);
+        Button loginButton = findViewById(R.id.loginBtn);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        findViewById(R.id.buy).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //PaymentUtils.testChargeToken();
-                        payWithGoogle();
+        loginButton.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    public void onClick(View view)
+                    {
+                        DatabaseReference users = mDatabase.child("users");
+                        Query queryRef =
+                                users.orderByChild("email")
+                                        .equalTo(email.getText().toString())
+                                .limitToFirst(1);
+
+                        queryRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (!dataSnapshot.hasChildren()) {
+                                            createNewCustomerRecord();
+                                            openActivity2();
+                                            return;
+                                        }
+
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                currentUser = snapshot.getValue(User.class);
+                                             openActivity2();
+                                                return;
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
                     }
                 });
     }
 
-    private void payWithGoogle() {
-        PaymentDataRequest request = PaymentUtils.createPaymentDataRequest();
-        if (request != null) {
-            AutoResolveHelper.resolveTask(
-                    paymentsClient.loadPaymentData(request),
-                    MainActivity.this,
-                    LOAD_PAYMENT_DATA_REQUEST_CODE);
-        }
+    private void openActivity2() {
+        Intent intent = new Intent(this, PaymentActivity.class);
+        intent.putExtra("userId", currentUser.userId);
+        intent.putExtra("stripeId", currentUser.stripeId);
+        startActivity(intent);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case LOAD_PAYMENT_DATA_REQUEST_CODE:
-                switch (resultCode) {
-                    case Activity.RESULT_OK:
-                        PaymentData paymentData = PaymentData.getFromIntent(data);
-                        // You can get some data on the user's card, such as the brand and last 4 digits
-                        CardInfo info = paymentData.getCardInfo();
-                        // You can also pull the user address from the PaymentData object.
-                        UserAddress address = paymentData.getShippingAddress();
-                        // This is the raw JSON string version of your Stripe token.
-                        String rawToken = paymentData.getPaymentMethodToken().getToken();
-
-                        // Now that you have a Stripe token object, charge that by using the id
-                        Token stripeToken = Token.fromString(rawToken);
-                        if (stripeToken != null) {
-                            PaymentUtils.chargeToken(stripeToken);
-                        }
-                        break;
-                    case Activity.RESULT_CANCELED:
-                        break;
-                    case AutoResolveHelper.RESULT_ERROR:
-                        Status status = AutoResolveHelper.getStatusFromIntent(data);
-                        // Log the status for debugging
-                        // Generally there is no need to show an error to
-                        // the user as the Google Payment API will do that
-                        break;
-                    default:
-                        // Do nothing.
-                }
-                break; // Breaks the case LOAD_PAYMENT_DATA_REQUEST_CODE
-            // Handle any other startActivityForResult calls you may have made.
-            default:
-                // Do nothing.
-        }
+    private void createNewCustomerRecord() {
+        stripeId = PaymentUtils.createStripeCustomer(email.getText().toString());
+        DatabaseReference userNode = mDatabase.child("users").push();
+        currentUser = new User(email.getText().toString(),
+                pass.getText().toString(),stripeId, userNode.getKey());
+        userNode.setValue(currentUser);
     }
-
 }
-
 
 
 
