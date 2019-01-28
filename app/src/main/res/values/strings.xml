@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">stripe-google-pay</string>
+    <string name="demo_card_text">placeholder text</string>
 </resources>

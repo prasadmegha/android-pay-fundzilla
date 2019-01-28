@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "666363584356",
+    "firebase_url": "https://stripepay-a101d.firebaseio.com",
+    "project_id": "stripepay-a101d",
+    "storage_bucket": "stripepay-a101d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666363584356:android:59b1d3206b380c40",
+        "android_client_info": {
+          "package_name": "com.example.stripe_google_pay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666363584356-mei5gfr4g7a7k2kticli39brq4eehgid.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stripe_google_pay",
+            "certificate_hash": "65bca2e1cdc586082ef5c6711a83e41e14833569"
+          }
+        },
+        {
+          "client_id": "666363584356-pv13e407ho3gbtkedr1v9lr9uvmi2061.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmqlx2AzgAopx8USBPz-urUIT743x1Ugc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666363584356-pv13e407ho3gbtkedr1v9lr9uvmi2061.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

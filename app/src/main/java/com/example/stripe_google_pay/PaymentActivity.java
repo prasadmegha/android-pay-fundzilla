@@ -3,9 +3,10 @@ package com.example.stripe_google_pay;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.identity.intents.model.UserAddress;
@@ -30,6 +31,13 @@ public class PaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator indicator =
+                findViewById(R.id.circular_progress);
+
+        indicator.setProgress(10, 20);
+
+        /*
         userId = getIntent().getExtras().getString("userId");
         stripeId = getIntent().getExtras().getString("stripeId");
         if (userId == null) {
@@ -41,6 +49,17 @@ public class PaymentActivity extends AppCompatActivity {
                         new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST)
                                 .build());
 
+        //Opens the funding page activity
+        /*
+        Button fundButton = findViewById(R.id.);
+       fundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity3();
+            }
+        });
+
+
         findViewById(R.id.buy).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -49,6 +68,7 @@ public class PaymentActivity extends AppCompatActivity {
                         payWithGoogle();
                     }
                 });
+                */
     }
 
     private void payWithGoogle() {
@@ -61,6 +81,11 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
+
+    private void openActivity3() {
+        Intent intent = new Intent(this, FundMeActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
