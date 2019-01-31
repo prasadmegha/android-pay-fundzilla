@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 {
                     public void onClick(View view)
                     {
-
                         DatabaseReference users = mDatabase.child("users");
                         Query queryRef =
                                 users.orderByChild("email")

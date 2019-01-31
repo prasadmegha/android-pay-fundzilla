@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.StrictMode;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.identity.intents.model.UserAddress;
@@ -17,13 +21,24 @@ import com.google.android.gms.wallet.PaymentDataRequest;
 import com.google.android.gms.wallet.PaymentsClient;
 import com.google.android.gms.wallet.Wallet;
 import com.google.android.gms.wallet.WalletConstants;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.stripe.android.model.Token;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentActivity extends AppCompatActivity {
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 99;
     private static PaymentsClient paymentsClient;
     private static  String userId;
     private static String stripeId;
+    private ListView mCampaignListView;
+    private ArrayList<Campaign> activeCampaigns = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +47,33 @@ public class PaymentActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator indicator =
-                findViewById(R.id.circular_progress);
 
-        indicator.setProgress(10, 20);
+        mCampaignListView = (ListView) findViewById(R.id.campaign_list_view);
+        FirebaseApp.initializeApp(this);
+        DatabaseReference mDatabase =
+                FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("campaigns").addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        activeCampaigns = new ArrayList<>();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            activeCampaigns.add(snapshot.getValue(Campaign.class));
+                        }
+
+                        mCampaignListView
+                                .setAdapter(new CampaignListAdapter(
+                                        PaymentActivity.this, activeCampaigns));
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
+
 
         /*
         userId = getIntent().getExtras().getString("userId");
