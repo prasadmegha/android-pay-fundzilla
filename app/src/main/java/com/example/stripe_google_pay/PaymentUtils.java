@@ -77,17 +77,20 @@ public class PaymentUtils {
             throw new RuntimeException("Stripe-api threw an exception " + e);
         }
     }
-
+    // Stripe custom account creation request
     public static String createStripeCustomer(String email) {
         // Set your secret key: remember to change this to your live secret key in production
-// See your keys here: https://dashboard.stripe.com/account/apikeys
+         // See your keys here: https://dashboard.stripe.com/account/apikeys
         Stripe.apiKey = "sk_test_XdFiSYM0HYhnhv7zuXCOxL7n";
 
+
+        //store details like country, email, type in params
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("country", "US");
         params.put("type", "custom");
         params.put("email", email);
 
+        //Create account by calling create function and passing params as parameter and return ID using function getID()
         Account acct;
         try {
             acct = Account.create(params);
@@ -99,29 +102,5 @@ public class PaymentUtils {
     }
 
 
-    public static void testChargeToken() {
-        //Token stripeToken
-        // This chargeToken function is a call to your own server, which should then connect
-        // to Stripe's API to finish the charge.
 
-        // Set your secret key: remember to change this to your live secret key in production
-// See your keys here: https://dashboard.stripe.com/account/apikeys
-        Stripe.apiKey= "sk_test_XdFiSYM0HYhnhv7zuXCOxL7n";
-// Token is created using Checkout or Elements!
-// Get the payment token ID submitted by the form:
-        //String token = stripeToken.getId();
-        String token = "tok_visa";
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("amount", 999);
-        params.put("currency", "usd");
-        params.put("description", "Example charge");
-        params.put("source", token);
-
-        try {
-            Charge charge = Charge.create(params);
-        } catch (StripeException e) {
-            throw new RuntimeException("Stripe-api threw an exception " + e);
-        }
-    }
 }

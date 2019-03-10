@@ -1,10 +1,12 @@
 package com.example.stripe_google_pay;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,16 +28,26 @@ public class CampaignListAdapter extends BaseAdapter {
                         inflate(R.layout.campaign_list_item, parent, false);
         }
 
-        Campaign campaign = getItem(position);
+        final Campaign campaign = getItem(position);
         ((TextView) convertView.findViewById(R.id.title1))
                 .setText(campaign.title);
         ((TextView) convertView.findViewById(R.id.shorttext))
                 .setText(campaign.shortHeadline);
 
+        Button readMore = (Button) convertView.findViewById(R.id.Readmore);
+        readMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), CampaignActivity.class);
+                intent.putExtra("campaignID", campaign.id);
+                view.getContext().startActivity(intent);}
+        });
         antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator progressIndicator =
                 convertView.findViewById(R.id.circular_progress);
         progressIndicator.setProgress(campaign.raised, campaign.goal);
         return convertView;
+
+
     }
 
     @Override

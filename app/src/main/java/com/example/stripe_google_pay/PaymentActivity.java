@@ -4,12 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.StrictMode;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.android.gms.common.api.Status;
@@ -19,8 +15,6 @@ import com.google.android.gms.wallet.CardInfo;
 import com.google.android.gms.wallet.PaymentData;
 import com.google.android.gms.wallet.PaymentDataRequest;
 import com.google.android.gms.wallet.PaymentsClient;
-import com.google.android.gms.wallet.Wallet;
-import com.google.android.gms.wallet.WalletConstants;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.stripe.android.model.Token;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PaymentActivity extends AppCompatActivity {
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 99;
@@ -39,6 +32,8 @@ public class PaymentActivity extends AppCompatActivity {
     private static String stripeId;
     private ListView mCampaignListView;
     private ArrayList<Campaign> activeCampaigns = new ArrayList();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +54,10 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         activeCampaigns = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            activeCampaigns.add(snapshot.getValue(Campaign.class));
+                            Campaign campaign = snapshot.getValue(Campaign.class);
+                            String campaignId = snapshot.getKey();
+                            campaign.setId(campaignId);
+                            activeCampaigns.add(campaign);
                         }
 
                         mCampaignListView
