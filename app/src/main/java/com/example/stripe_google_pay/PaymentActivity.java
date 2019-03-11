@@ -107,7 +107,7 @@ public class PaymentActivity extends AppCompatActivity {
                 */
     }
 
-    private void payWithGoogle() {
+   /* private void payWithGoogle() {
         PaymentDataRequest request = PaymentUtils.createPaymentDataRequest();
         if (request != null) {
             AutoResolveHelper.resolveTask(
@@ -116,12 +116,14 @@ public class PaymentActivity extends AppCompatActivity {
                     LOAD_PAYMENT_DATA_REQUEST_CODE);
         }
     }
+    */
 
 
     private void openActivity3() {
         Intent intent = new Intent(this, FundMeActivity.class);
         startActivity(intent);
     }
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -159,4 +161,5 @@ public class PaymentActivity extends AppCompatActivity {
                 // Do nothing.
         }
     }
+    */
 }

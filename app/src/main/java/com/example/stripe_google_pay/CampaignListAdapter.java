@@ -9,6 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.wallet.AutoResolveHelper;
+import com.google.android.gms.wallet.PaymentDataRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +43,15 @@ public class CampaignListAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), CampaignActivity.class);
                 intent.putExtra("campaignID", campaign.id);
+                intent.putExtra("StripeId", campaign.stripeId);
                 view.getContext().startActivity(intent);}
         });
         antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator progressIndicator =
                 convertView.findViewById(R.id.circular_progress);
         progressIndicator.setProgress(campaign.raised, campaign.goal);
         return convertView;
+
+
 
 
     }
