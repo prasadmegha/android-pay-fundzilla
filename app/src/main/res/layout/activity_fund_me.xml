@@ -1,143 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blueish"
-    tools:context=".Fundme">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/goalLabel"
-        android:layout_width="116dp"
-        android:layout_height="91dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/almendra_bold_italic"
-        android:text="Goal Amount:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--Put form controls here-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Goal amount">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/goal"
+            style="@android:style/Widget.Material.Light.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/campaignLabel"
-        android:layout_width="143dp"
-        android:layout_height="81dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="232dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/almendra_bold_italic"
-        android:text="Campaign Title:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Campaign Title">
 
-    <TextView
-        android:id="@+id/categoryLabel"
-        android:layout_width="138dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/almendra_bold_italic"
-        android:text="Category:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campaignLabel"
-        app:layout_constraintVertical_bias="0.0" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/title"
+            style="@android:style/Widget.Material.Light.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="45dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="72dp"
-        android:fontFamily="cursive"
-        android:lineHeight="@android:dimen/notification_large_icon_height"
-        android:lineSpacingExtra="36sp"
-        android:maxHeight="20dp"
-        android:text="$"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="50sp"
-        android:textStyle="bold|italic"
-        android:typeface="sans"
-        app:layout_constraintStart_toEndOf="@+id/goalLabel"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Short blurb">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/blurb"
+            style="@android:style/Widget.Material.Light.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="68dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="72dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Additional description">
 
-    <Spinner
-        android:id="@+id/categorySpinner"
-        android:layout_width="212dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.994"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
-        app:layout_constraintVertical_bias="0.188" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/bodyText"
+            style="@android:style/Widget.Material.Light.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:lines="10" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="213dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="max 50 words"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.023" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="325dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="92dp"
-        android:background="@color/colorAccent"
-        android:elevation="11dp"
-        android:fontFamily="@font/almendra_bold_italic"
-        android:text="NEXT"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="36sp"
-        android:typeface="serif"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/create"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="122dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="140dp"
+        android:text="CREATE" />
+</LinearLayout>

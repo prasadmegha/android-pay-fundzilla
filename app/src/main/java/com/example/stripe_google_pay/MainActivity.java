@@ -94,11 +94,9 @@ public class MainActivity extends AppCompatActivity {
         String stripeId = PaymentUtils.createStripeCustomer(email.getText().toString());
         DatabaseReference userNode = mDatabase.child("users").push();
         currentUser = new User(email.getText().toString(),
-                pass.getText().toString(),stripeId, userNode.getKey());
+                pass.getText().toString(), stripeId, userNode.getKey());
         userNode.setValue(currentUser);
     }
-
-
 }
 
 

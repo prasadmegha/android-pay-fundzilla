@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.Status;
@@ -32,7 +33,9 @@ import com.stripe.android.model.Token;
 public class CampaignActivity extends AppCompatActivity {
     private String campaignId = null;
     Campaign campaignDetail = new Campaign();
+    EditText donation;
     private static PaymentsClient paymentsClient;
+    DatabaseReference mDatabase = null;
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 99;
 
     @Override
@@ -42,10 +45,10 @@ public class CampaignActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         FirebaseApp.initializeApp(this);
-        DatabaseReference mDatabase =
-                FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         Bundle extras = getIntent().getExtras();
         campaignId = extras.getString("campaignID");
+        donation = (EditText) findViewById(R.id.amount);
 
         paymentsClient = Wallet.getPaymentsClient(this,
                 new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST)
@@ -72,13 +75,9 @@ public class CampaignActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //PaymentUtils.testChargeToken();
                         payWithGoogle();
                     }
                 });
-
-
-
     }
 
     private void fillLayout() {
@@ -89,8 +88,6 @@ public class CampaignActivity extends AppCompatActivity {
         textView2.setText(campaignDetail.body);
 
     }
-
-
 
     private void payWithGoogle() {
         PaymentDataRequest request = PaymentUtils.createPaymentDataRequest();
@@ -118,8 +115,13 @@ public class CampaignActivity extends AppCompatActivity {
                             // Now that you have a Stripe token object, charge that by using the id
                             Token stripeToken = Token.fromString(rawToken);
                             if (stripeToken != null) {
-                                PaymentUtils.chargeToken(stripeToken, campaignDetail.stripeId);
+                                int amount = Integer.parseInt(donation.getText().toString());
+                                PaymentUtils.chargeToken(stripeToken, campaignDetail.stripeId, amount);
+                                Intent intent = new Intent(this, ConfirmationActivity.class);
+                                startActivity(intent);
+                                updateCampaignRaised(amount);
                             }
+
                             break;
                         case Activity.RESULT_CANCELED:
                             break;
@@ -137,5 +139,10 @@ public class CampaignActivity extends AppCompatActivity {
                 default:
                     // Do nothing.
             }
+        }
+
+        void updateCampaignRaised(int amount) {
+            campaignDetail.raised += amount;
+            mDatabase.child("campaigns").child(campaignId).setValue(campaignDetail);
         }
 }

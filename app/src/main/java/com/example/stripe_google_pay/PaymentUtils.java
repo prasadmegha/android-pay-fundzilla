@@ -50,7 +50,7 @@ public class PaymentUtils {
         return request.build();
     }
 
-    public static void chargeToken(Token stripeToken, String accountId) {
+    public static void chargeToken(Token stripeToken, String accountId, int donation) {
         //Token stripeToken
         // This chargeToken function is a call to your own server, which should then connect
         // to Stripe's API to finish the charge.
@@ -64,7 +64,7 @@ public class PaymentUtils {
         //String token = "tok_visa";
 
         Map<String, Object> params = new HashMap<>();
-        params.put("amount", 100);
+        params.put("amount", donation*100);
         params.put("currency", "usd");
         params.put("description", "Example charge");
         params.put("source", token);
