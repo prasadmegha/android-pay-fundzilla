@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class PaymentActivity extends AppCompatActivity {
+public class CampaignListActivity extends AppCompatActivity {
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 99;
     private static PaymentsClient paymentsClient;
     private static  String userId;
@@ -45,8 +45,8 @@ public class PaymentActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PaymentActivity.this,
-                        FundMeActivity.class);
+                Intent intent = new Intent(CampaignListActivity.this,
+                        CreateCampaignActivity.class);
                 intent.putExtra("stripeId", stripeId);
                 startActivity(intent);
             }
@@ -66,7 +66,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                         mCampaignListView
                                 .setAdapter(new CampaignListAdapter(
-                                        PaymentActivity.this, activeCampaigns));
+                                        CampaignListActivity.this, activeCampaigns));
                     }
 
                     @Override

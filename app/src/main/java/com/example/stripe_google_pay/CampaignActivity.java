@@ -114,7 +114,7 @@ public class CampaignActivity extends AppCompatActivity {
                             if (stripeToken != null) {
                                 int amount = Integer.parseInt(donation.getText().toString());
                                 PaymentUtils.chargeToken(stripeToken, campaignDetail.stripeId, amount);
-                                Intent intent = new Intent(this, ConfirmationActivity.class);
+                                Intent intent = new Intent(this, PaymentConfirmationActivity.class);
                                 intent.putExtra("stripeId", campaignDetail.stripeId);
                                 startActivity(intent);
                                 updateCampaignRaised(amount);

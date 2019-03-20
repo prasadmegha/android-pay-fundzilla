@@ -13,7 +13,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class FundMeActivity extends AppCompatActivity {
+public class CreateCampaignActivity extends AppCompatActivity {
     String title = null;
     int goal = -1;
     String blurb = null;
@@ -49,8 +49,8 @@ public class FundMeActivity extends AppCompatActivity {
                 campaign.body = bodyText.getText().toString();
                 DatabaseReference campaignNode = mDatabase.child("campaigns").push();
                 campaignNode.setValue(campaign);
-                Intent intent = new Intent(FundMeActivity.this,
-                        PaymentActivity.class);
+                Intent intent = new Intent(CreateCampaignActivity.this,
+                        CampaignListActivity.class);
                 intent.putExtra("stripeId", stripeId);
                 startActivity(intent);
             }

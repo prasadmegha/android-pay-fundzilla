@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class ConfirmationActivity extends AppCompatActivity {
+public class PaymentConfirmationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +19,8 @@ public class ConfirmationActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(ConfirmationActivity.this,
-                                PaymentActivity.class);
+                        Intent intent = new Intent(PaymentConfirmationActivity.this,
+                                CampaignListActivity.class);
                         intent.putExtra("stripeId", stripeId);
                         startActivity(intent);
                     }
