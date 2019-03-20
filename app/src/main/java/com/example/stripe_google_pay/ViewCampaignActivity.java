@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.stripe.android.model.Token;
 
 
-public class CampaignActivity extends AppCompatActivity {
+public class ViewCampaignActivity extends AppCompatActivity {
     private String campaignId = null;
     Campaign campaignDetail = new Campaign();
     EditText donation;
@@ -91,7 +91,7 @@ public class CampaignActivity extends AppCompatActivity {
         if (request != null) {
             AutoResolveHelper.resolveTask(
                     paymentsClient.loadPaymentData(request),
-                    CampaignActivity.this,
+                    ViewCampaignActivity.this,
                     LOAD_PAYMENT_DATA_REQUEST_CODE);
         }
     }
@@ -125,9 +125,6 @@ public class CampaignActivity extends AppCompatActivity {
                             break;
                         case AutoResolveHelper.RESULT_ERROR:
                             Status status = AutoResolveHelper.getStatusFromIntent(data);
-                            // Log the status for debugging
-                            // Generally there is no need to show an error to
-                            // the user as the Google Payment API will do that
                             break;
                         default:
                             // Do nothing.

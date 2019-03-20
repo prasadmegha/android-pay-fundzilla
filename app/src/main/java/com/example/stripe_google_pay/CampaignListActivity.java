@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import com.google.android.gms.wallet.PaymentsClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -19,9 +18,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class CampaignListActivity extends AppCompatActivity {
-    private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 99;
-    private static PaymentsClient paymentsClient;
-    private static  String userId;
     private static String stripeId;
     private ListView mCampaignListView;
     private ArrayList<Campaign> activeCampaigns = new ArrayList();
@@ -65,10 +61,9 @@ public class CampaignListActivity extends AppCompatActivity {
                         }
 
                         mCampaignListView
-                                .setAdapter(new CampaignListAdapter(
+                                .setAdapter(new CampaignListUIAdapter(
                                         CampaignListActivity.this, activeCampaigns));
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 

@@ -9,15 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.wallet.AutoResolveHelper;
-import com.google.android.gms.wallet.PaymentDataRequest;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class CampaignListAdapter extends BaseAdapter {
+public class CampaignListUIAdapter extends BaseAdapter {
     //public constructor
-    public CampaignListAdapter(Context context, ArrayList<Campaign> items) {
+    public CampaignListUIAdapter(Context context, ArrayList<Campaign> items) {
         this.context = context;
         this.items = items;
     }
@@ -41,7 +38,7 @@ public class CampaignListAdapter extends BaseAdapter {
         donate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), CampaignActivity.class);
+                Intent intent = new Intent(view.getContext(), ViewCampaignActivity.class);
                 intent.putExtra("campaignID", campaign.id);
                 intent.putExtra("StripeId", campaign.stripeId);
                 view.getContext().startActivity(intent);}
@@ -50,9 +47,6 @@ public class CampaignListAdapter extends BaseAdapter {
                 convertView.findViewById(R.id.circular_progress);
         progressIndicator.setProgress(campaign.raised, campaign.goal);
         return convertView;
-
-
-
 
     }
 

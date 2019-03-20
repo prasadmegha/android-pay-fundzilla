@@ -9,9 +9,7 @@ public class User {
     public String stripeId;
     public String userId;
 
-    public User() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
-    }
+    public User() {}
 
     public User(String email, String password, String stripeId, String userId) {
         this.password = password;
@@ -19,5 +17,4 @@ public class User {
         this.stripeId = stripeId;
         this.userId = userId;
     }
-
 }

@@ -10,9 +10,7 @@ public class Campaign {
         this.stripeId = stripeId;
     }
 
-    public Campaign() {
-
-    }
+    public Campaign() { }
 
     public void setId(String id) {
         this.id = id;

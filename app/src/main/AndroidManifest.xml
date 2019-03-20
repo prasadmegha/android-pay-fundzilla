@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CampaignActivity" />
+        <activity android:name=".ViewCampaignActivity" />
         <activity android:name=".CampaignListActivity" />
 
         <meta-data
