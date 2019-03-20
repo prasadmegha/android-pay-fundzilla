@@ -69,15 +69,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="DONATE" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/Readmore"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:text="READ MORE" />
-
                     <!-- Include other widget or layout tags here. These are considered
                         "child views" or "children" of the linear layout -->
                 </LinearLayout>

@@ -1,6 +1,5 @@
 package com.example.stripe_google_pay;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.StrictMode;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,13 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.identity.intents.model.UserAddress;
-import com.google.android.gms.wallet.AutoResolveHelper;
-import com.google.android.gms.wallet.CardInfo;
-import com.google.android.gms.wallet.PaymentData;
-import com.google.android.gms.wallet.PaymentDataRequest;
 import com.google.android.gms.wallet.PaymentsClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
@@ -23,7 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.stripe.android.model.Token;
 
 import java.util.ArrayList;
 

@@ -54,7 +54,6 @@ public class CampaignActivity extends AppCompatActivity {
                 new Wallet.WalletOptions.Builder().setEnvironment(WalletConstants.ENVIRONMENT_TEST)
                         .build());
 
-
         mDatabase.child("campaigns").child(campaignId).addValueEventListener(
                 new ValueEventListener() {
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,8 +66,6 @@ public class CampaignActivity extends AppCompatActivity {
 
                     }
                 }
-
-
         );
 
          findViewById(R.id.button).setOnClickListener(
@@ -118,6 +115,7 @@ public class CampaignActivity extends AppCompatActivity {
                                 int amount = Integer.parseInt(donation.getText().toString());
                                 PaymentUtils.chargeToken(stripeToken, campaignDetail.stripeId, amount);
                                 Intent intent = new Intent(this, ConfirmationActivity.class);
+                                intent.putExtra("stripeId", campaignDetail.stripeId);
                                 startActivity(intent);
                                 updateCampaignRaised(amount);
                             }

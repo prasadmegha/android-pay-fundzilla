@@ -12,6 +12,8 @@ public class ConfirmationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
+        Bundle extras = getIntent().getExtras();
+        final String stripeId = extras.getString("stripeId");
 
         findViewById(R.id.button2).setOnClickListener(
                 new View.OnClickListener() {
@@ -19,6 +21,7 @@ public class ConfirmationActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent intent = new Intent(ConfirmationActivity.this,
                                 PaymentActivity.class);
+                        intent.putExtra("stripeId", stripeId);
                         startActivity(intent);
                     }
                 });

@@ -37,8 +37,8 @@ public class CampaignListAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.shorttext))
                 .setText(campaign.shortHeadline);
 
-        Button readMore = (Button) convertView.findViewById(R.id.Readmore);
-        readMore.setOnClickListener(new View.OnClickListener() {
+        Button donate = (Button) convertView.findViewById(R.id.donate);
+        donate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), CampaignActivity.class);
