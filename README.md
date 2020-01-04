@@ -47,6 +47,7 @@ The technical design goals of the platform/app are as follows:-
 ![Image description](https://github.com/prasadmegha/android-pay-fundzilla/blob/master/3.png)
 
 ### UI Mocks
+
 ### Login view
 ![Image description](https://github.com/prasadmegha/android-pay-fundzilla/blob/master/4.png)
 
@@ -58,10 +59,3 @@ The technical design goals of the platform/app are as follows:-
 
 ### Create campaign view
 ![Image description](https://github.com/prasadmegha/android-pay-fundzilla/blob/master/7.png)
-
-
-
-
-
-
-
